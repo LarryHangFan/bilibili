@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.bilibili.mapper.SwraperMapper">
+    <resultMap id="topWraperMap" type="IndexTopSwraper">
+        <result column="descript"  property="desc" jdbcType="VARCHAR"></result>
+        <result column="videoImg_src"  property="imgSrc" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <select id="findIndexTopSwraper" resultMap="topWraperMap" >
+        select  videoImg_src,descript from video limit 3
+    </select>
+</mapper>

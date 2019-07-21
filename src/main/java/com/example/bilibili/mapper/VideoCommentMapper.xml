@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.bilibili.mapper.VideoCommentMapper">
+    <resultMap id="videoCommentMap" type="VideoComment">
+        <result column="content"  property="content" jdbcType="VARCHAR"></result>
+        <result column="create_time"  property="createTime" jdbcType="VARCHAR"></result>
+        <result column="user_id"  property="userId" jdbcType="BIGINT"></result>
+        <result column="star_count"  property="starCount" jdbcType="BIGINT"></result>
+        <result column="name"  property="nickName" jdbcType="VARCHAR"></result>
+        <result column="head_img_src"  property="headImgSrc" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <select id="getVideoComments" parameterType="java.lang.Long" resultMap="videoCommentMap" >
+       select c.content,c.create_time,c.user_id,c.star_count,
+        (select u.nick_name from `user_detail` as u where u.id = c.user_id)as name,
+        (select ud.head_img_src from user_detail as ud where ud.user_id = c.user_id) as head_img_src
+        from `comment` as c   where video_id=#{videoId} GROUP BY c.comment_id
+    </select>
+</mapper>
